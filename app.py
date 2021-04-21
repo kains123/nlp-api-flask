@@ -156,6 +156,15 @@ def translation():
     result = translation(text, src="ko", tgt="en")
     return jsonify({"kakao": {"translation": result}})
 
+@app.route('/kakao/ocr', methods=['POST'])
+def ocr():
+    data = request.get_json()
+    file = data.get("file", "")
+    lang = data.get("lang", "")
+    ocr = Pororo(task="ocr", lang=lang)
+    result = ocr(file)
+    return jsonify({"kakao": {"ocr": result}})
+
 
 @app.route('/kakao/word_sense_disambiguation', methods=['POST'])
 def word_sense_disambiguation():
